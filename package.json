@@ -14,5 +14,13 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gofl26/recommendClothes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gofl26/recommendClothes/issues"
+  },
+  "homepage": "https://github.com/gofl26/recommendClothes#readme",
   "description": ""
 }
