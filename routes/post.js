@@ -31,7 +31,7 @@ router.put('/detail/:id', async (req, res) => {
     const date = today.toLocaleString();
 
     const createdPost = await Posts.updateOne(
-        { postId: Number(id) },
+        { postId: id },
         { $set: { content, title, image, date } }
     );
 
