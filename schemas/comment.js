@@ -11,11 +11,11 @@ const commentsSchema = mongoose.Schema({
         required: true,
         unique: true,
     },
-    commentId: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
+    // commentId: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // },
     userName: {
         type: String,
         required: true,
@@ -34,6 +34,14 @@ const commentsSchema = mongoose.Schema({
     // like: {
     //     type: Number,
     // },
+});
+
+postsSchema.virtual('commentId').get(function () {
+    return this._id.toHexString();
+});
+
+postsSchema.set('toJSON', {
+    virtuals: true,
 });
 
 module.exports = mongoose.model('Comments', commentsSchema);
