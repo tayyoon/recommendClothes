@@ -36,11 +36,11 @@ const commentsSchema = mongoose.Schema({
     // },
 });
 
-postsSchema.virtual('commentId').get(function () {
+commentsSchema.virtual('commentId').get(function () {
     return this._id.toHexString();
 });
 
-postsSchema.set('toJSON', {
+commentsSchema.set('toJSON', {
     virtuals: true,
 });
 

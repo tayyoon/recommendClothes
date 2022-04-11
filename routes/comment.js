@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 // 코멘트등록
 router.post('/comment/:id', authMiddleware, async (req, res) => {
-    let  { id }  = res.params;
+    let { id } = res.params;
 
     let today = new Date();
     let date = today.toLocaleString();
@@ -46,7 +46,7 @@ router.post('/comment/:id', authMiddleware, async (req, res) => {
     // const postId = existsPosts[existsPosts.length-1]+1;
 
     const createdComment = await Comments.create({
-        postId: id,
+        postId: Number(id),
         userId,
         userName,
         comment,
@@ -55,9 +55,10 @@ router.post('/comment/:id', authMiddleware, async (req, res) => {
         date,
     });
 
-    res.json({ 
+    res.json({
         // post: createdComment,
-        msg: '댓글 등록 완료!!' });
+        msg: '댓글 등록 완료!!',
+    });
 });
 
 // 코멘트조회 (로그인 ~ing)
@@ -89,26 +90,28 @@ router.post('/updatecomment/:id', authMiddleware, async (req, res) => {
 });
 
 // 코멘트수정 업데이트
-router.put('/updatecomment/:id', authMiddleware, (req, res) => {
-    // const { id } = req.params;	
-	// const { title } = req.body;
-	// const { content } = req.body;
-	// const { name } = req.body; 
-	// const { password } = req.body;
-	const {comment, commentId} = req.body;
+router.put('/updatecomment/:id', authMiddleware, async (req, res) => {
+    // const { id } = req.params;
+    // const { title } = req.body;
+    // const { content } = req.body;
+    // const { name } = req.body;
+    // const { password } = req.body;
+    const { comment, commentId } = req.body;
 
-	const existComment = await Comments.find({commentId: commentId });	
+    const existComment = await Comments.find({ commentId: commentId });
 
-	if(existComment.length){
-		await Comments.updateOne({commentId: commentId}, { $set: {comment}}) 	
-	}else{
-		return res.status(400).json({
-			errorMessage: "잘못된 접근 입니다!!!"	
-		});	
-	}
-	
-	 res.json({success: "댓글이 수정되었습니다."})
+    if (existComment.length) {
+        await Comments.updateOne(
+            { commentId: commentId },
+            { $set: { comment } }
+        );
+    } else {
+        return res.status(400).json({
+            errorMessage: '잘못된 접근 입니다!!!',
+        });
+    }
 
+    res.json({ success: '댓글이 수정되었습니다.' });
 });
 
 // 코멘트삭제
