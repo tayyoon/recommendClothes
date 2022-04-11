@@ -56,7 +56,7 @@ router.post('/comment/:id', authMiddleware, async (req, res) => {
     });
 
     res.json({
-        // post: createdComment,
+        post: createdComment,
         msg: '댓글 등록 완료!!',
     });
 });
